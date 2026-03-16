@@ -39,10 +39,12 @@ const nextConfig = {
     ];
   },
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const apiBase = apiUrl.startsWith('http') ? apiUrl : `https://${apiUrl}`;
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/:path*`,
+        destination: `${apiBase}/api/:path*`,
       },
     ];
   },
