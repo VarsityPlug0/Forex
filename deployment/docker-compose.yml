@@ -6,12 +6,12 @@ services:
     image: postgres:15-alpine
     container_name: forex-postgres
     environment:
-      POSTGRES_DB: forex_trading_platform
+      POSTGRES_DB: forex_platform
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../database/schema.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
     networks:
