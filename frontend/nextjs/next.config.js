@@ -1,5 +1,11 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname);
+    return config;
+  },
   reactStrictMode: true,
 
   // Optimise imports — tree-shake large packages at compile time
@@ -89,10 +95,11 @@ const nextConfig = {
   },
 
   async rewrites() {
+    if (process.env.NODE_ENV === 'production') return [];
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/:path*`,
+        destination: 'http://localhost:3001/api/:path*',
       },
     ]
   },

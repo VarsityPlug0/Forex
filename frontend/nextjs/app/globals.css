@@ -1,34 +1,8 @@
-/* Fonts are loaded via next/font — no @import needed */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --gold: #F0B429;
-  --gold-glow: rgba(240, 180, 41, 0.2);
-  --dark-bg: #050510;
-  --surface: #1E1E32;
-  --surface-hover: #252540;
-  --border-gold: rgba(240, 180, 41, 0.15);
-  --text-primary: #F1F5F9;
-  --text-secondary: #94A3B8;
-  --success: #10B981;
-  --danger: #EF4444;
-
-  /* ── shadcn/ui CSS variable tokens (RGB channels → enables Tailwind opacity modifiers) ── */
-  --background: 5 5 16;             /* #050510 deep space dark */
-  --foreground: 241 245 249;        /* #F1F5F9 slate-100 */
-  --primary: 240 180 41;            /* #F0B429 brand gold */
-  --primary-foreground: 5 5 16;     /* dark text on gold */
-  --secondary: 30 30 50;            /* #1E1E32 surface */
-  --secondary-foreground: 241 245 249;
-  --muted: 26 26 46;                /* #1A1A2E dark-100 */
-  --muted-foreground: 148 163 184;  /* #94A3B8 slate-400 */
-  --accent: 22 33 62;               /* #16213E dark-200 */
-  --accent-foreground: 241 245 249;
-  --border: 240 180 41;             /* gold — opacity applied via Tailwind /modifier */
-  --ring: 240 180 41;
-}
 
 * {
   box-sizing: border-box;
@@ -38,112 +12,31 @@
 
 html,
 body {
-  background-color: #050510;
-  color: #F1F5F9;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #111111;
+  color: #ffffff;
   font-family: 'Inter', system-ui, sans-serif;
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0A0A1A;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(240, 180, 41, 0.3);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(240, 180, 41, 0.6);
-}
-
-/* Selection */
-::selection {
-  background: rgba(240, 180, 41, 0.3);
-  color: #fff;
-}
-
-@layer components {
-  .btn-gold {
-    @apply bg-brand-gold text-dark-500 font-bold px-6 py-3 rounded-xl hover:bg-brand-gold-light transition-all duration-300 hover:shadow-gold hover:scale-[1.02] active:scale-95;
-  }
-
-  .btn-outline {
-    @apply border border-brand-gold text-brand-gold font-semibold px-6 py-3 rounded-xl hover:bg-brand-gold hover:text-dark-500 transition-all duration-300 hover:scale-[1.02] active:scale-95;
-  }
-
-  .card {
-    @apply bg-surface-100 border border-[rgba(240,180,41,0.12)] rounded-2xl p-6 transition-all duration-300 hover:border-[rgba(240,180,41,0.3)] hover:shadow-card backdrop-blur-sm;
-  }
-
-  .card-glow {
-    @apply card hover:shadow-gold hover:-translate-y-1;
-  }
-
-  .stat-up {
-    @apply text-success font-semibold;
-  }
-
-  .stat-down {
-    @apply text-danger font-semibold;
-  }
-
-  .badge {
-    @apply text-xs font-semibold px-3 py-1 rounded-full;
-  }
-
-  .badge-gold {
-    @apply badge bg-brand-gold text-dark-500;
-  }
-
-  .badge-green {
-    @apply badge bg-success/20 text-success border border-success/30;
-  }
-
-  .badge-red {
-    @apply badge bg-danger/20 text-danger border border-danger/30;
-  }
-
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold text-white mb-3;
-  }
-
-  .section-subtitle {
-    @apply text-slate-400 text-lg mb-12;
-  }
-
-  .glow-line {
-    @apply h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent;
-  }
-
-  .gradient-text {
-    @apply bg-gradient-to-r from-brand-gold to-brand-gold-light bg-clip-text text-transparent;
-  }
-
-  /* Ticker tape */
-  .ticker-wrap {
-    @apply overflow-hidden bg-surface-100 border-y border-[rgba(240,180,41,0.1)] py-2;
-  }
-
-  .ticker-inner {
-    @apply flex gap-12 whitespace-nowrap animate-ticker;
-  }
 }
 
 @layer utilities {
-  .bg-grid {
-    background-image: linear-gradient(rgba(240, 180, 41, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(240, 180, 41, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
+  .text-balance {
+    text-wrap: balance;
   }
 
-  .text-glow {
-    text-shadow: 0 0 30px rgba(240, 180, 41, 0.5);
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animate-delay-500 {
+    animation-delay: 500ms;
   }
 }

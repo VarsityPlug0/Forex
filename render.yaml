@@ -1,0 +1,68 @@
+services:
+  # ── Backend: Node.js / Express API ────────────────────────────────────────
+  - type: web
+    name: forex-api
+    runtime: node
+    rootDir: backend/nodejs
+    buildCommand: npm install
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        fromService:
+          type: web
+          name: forex-api
+          property: port
+      - key: CLIENT_URL
+        fromService:
+          type: web
+          name: forex-frontend
+          property: host
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DB_HOST
+        fromDatabase:
+          name: forex-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: forex-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: forex-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: forex-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: forex-db
+          property: password
+
+  # ── Frontend: Next.js ──────────────────────────────────────────────────────
+  - type: web
+    name: forex-frontend
+    runtime: node
+    rootDir: frontend/nextjs
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: forex-api
+          property: hostURL
+
+# ── PostgreSQL Database ────────────────────────────────────────────────────
+databases:
+  - name: forex-db
+    databaseName: forex_trading_platform
+    user: forex_user
