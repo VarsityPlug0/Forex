@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Users, FileText, GraduationCap,
   BarChart3, Megaphone, Settings, ChevronLeft,
-  ChevronRight, TrendingUp, LineChart, LogOut, Menu, X,
+  ChevronRight, TrendingUp, LineChart, LogOut, Menu, X, Sparkles,
 } from 'lucide-react';
 
 const navItems = [
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/blog', label: 'Blog / Articles', icon: FileText },
   { href: '/admin/academy', label: 'Trading Academy', icon: GraduationCap },
+  { href: '/admin/diagrams', label: 'AI Diagrams', icon: Sparkles },
   { href: '/admin/pamm', label: 'PAMM Groups', icon: TrendingUp },
   { href: '/admin/announcements', label: 'Announcements', icon: Megaphone },
   { href: '/admin/analytics', label: 'Analytics', icon: LineChart },

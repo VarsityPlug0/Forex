@@ -16,6 +16,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const path = require('path');
 
 // Health check (before all other middleware — no overhead)
 app.get('/health', (req, res) => {
@@ -27,11 +28,24 @@ app.use('/api/', rateLimiter);
 
 // Security middleware
 app.use(helmet());
+const DEV_ORIGINS = /^http:\/\/localhost:\d+$/;
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
+  origin: (origin, cb) => {
+    // Allow requests with no origin (curl, Postman, server-to-server)
+    if (!origin) return cb(null, true);
+    // In development: allow any localhost port
+    if (process.env.NODE_ENV !== 'production' && DEV_ORIGINS.test(origin)) return cb(null, true);
+    // In production: use CLIENT_URL env var
+    if (origin === process.env.CLIENT_URL) return cb(null, true);
+    cb(new Error(`CORS: origin ${origin} not allowed`));
+  },
+  credentials: true,
 }));
 app.use(compression());
+
+// Serve generated diagrams as static files
+app.use('/diagrams', express.static(path.join(__dirname, '..', 'public', 'diagrams')));
+app.use('/certificates', express.static(path.join(__dirname, '..', 'public', 'certificates')));
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));

@@ -101,7 +101,15 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'http://localhost:3001/api/:path*',
       },
-    ]
+      {
+        source: '/diagrams/:path*',
+        destination: 'http://localhost:3001/diagrams/:path*',
+      },
+      {
+        source: '/certificates/:path*',
+        destination: 'http://localhost:3001/certificates/:path*',
+      },
+    ];
   },
 }
 

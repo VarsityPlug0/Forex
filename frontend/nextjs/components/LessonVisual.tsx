@@ -1,5 +1,5 @@
 'use client';
-import { memo, lazy, Suspense } from 'react';
+import { memo, lazy, Suspense, useState, useEffect } from 'react';
 
 const LessonChart = lazy(() => import('./TradingViewChart'));
 
@@ -2809,6 +2809,66 @@ const visualMap: Record<string, () => JSX.Element> = {
 export default memo(function LessonVisual({ title, courseId }: { title: string; courseId: number }) {
   const type = getVisualType(title, courseId);
 
+  // Check if an AI-generated diagram exists for this visual type.
+  // undefined = still checking, null = none exists, string = URL ready
+  const [diagramUrl, setDiagramUrl] = useState<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    setDiagramUrl(undefined);
+    fetch(`/api/v1/diagrams/${encodeURIComponent(type)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => setDiagramUrl(data?.latestUrl ?? null))
+      .catch(() => setDiagramUrl(null));
+  }, [type]);
+
+  // ── Still checking API ────────────────────────────────────────────────
+  if (diagramUrl === undefined) {
+    return (
+      <div style={{
+        width: '100%', height: 220, borderRadius: '12px', marginBottom: '1.5rem',
+        background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+      }}>
+        <span style={{
+          width: 16, height: 16, borderRadius: '50%', display: 'inline-block',
+          background: 'conic-gradient(from 0deg,#6366f1,#8b5cf6,#a855f7,#6366f1)',
+          animation: 'spin 1s linear infinite',
+        }} />
+        <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 12 }}>Loading diagram…</span>
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      </div>
+    );
+  }
+
+  // ── AI diagram found — show it ─────────────────────────────────────────
+  if (diagramUrl) {
+    return (
+      <figure style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(99,102,241,0.25)', margin: '0 0 1.5rem 0' }}>
+        {/* Header badge */}
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '8px 14px', background: 'rgba(99,102,241,0.08)',
+          borderBottom: '1px solid rgba(99,102,241,0.15)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'linear-gradient(135deg,#6366f1,#a855f7)', display: 'inline-block' }} />
+            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              AI-Generated Diagram
+            </span>
+          </div>
+          <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 10 }}>Gemini</span>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={diagramUrl}
+          alt={title}
+          style={{ width: '100%', display: 'block', background: '#0f1117', maxHeight: 500, objectFit: 'contain' }}
+        />
+      </figure>
+    );
+  }
+
+  // ── No diagram — fallback to TradingView chart or SVG ─────────────────
   if (CHART_TYPES.has(type)) {
     return (
       <div style={{ width: '100%', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden', marginBottom: '1.5rem' }}>

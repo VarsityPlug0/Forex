@@ -11,6 +11,8 @@ const investmentRoutes = require('./routes/investment.routes');
 const communityRoutes = require('./routes/community.routes');
 const adminRoutes = require('./routes/admin.routes');
 const analyticsRoutes = require('./routes/analytics.routes');
+const diagramRoutes = require('./routes/diagram.routes');
+const certificateRoutes = require('./routes/certificate.routes');
 
 // API version prefix
 const API_PREFIX = '/v1';
@@ -30,6 +32,8 @@ router.use(`${API_PREFIX}/investments`, investmentRoutes);
 router.use(`${API_PREFIX}/community`, communityRoutes);
 router.use(`${API_PREFIX}/admin`, adminRoutes);
 router.use(`${API_PREFIX}/analytics`, analyticsRoutes);
+router.use(`${API_PREFIX}/diagrams`, diagramRoutes);
+router.use(`${API_PREFIX}/certificates`, certificateRoutes);
 
 // 404 handler for API routes
 router.use(`${API_PREFIX}/*`, (req, res) => {

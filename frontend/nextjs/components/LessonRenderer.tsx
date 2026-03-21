@@ -1,7 +1,9 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, lazy, Suspense } from 'react';
 import { Block } from '@/lib/lesson-types';
+
+const LessonDiagram = lazy(() => import('./LessonDiagram'));
 
 const calloutStyles = {
   info: {
@@ -315,6 +317,24 @@ function LessonRenderer({ blocks }: { blocks: Block[] }) {
               </div>
             );
           }
+
+          case 'diagram':
+            return (
+              <div key={idx} className="my-6">
+                <Suspense
+                  fallback={
+                    <div
+                      className="rounded-2xl flex items-center justify-center py-12"
+                      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
+                    >
+                      <p className="text-white/30 text-xs uppercase tracking-widest">Loading diagram…</p>
+                    </div>
+                  }
+                >
+                  <LessonDiagram visualType={block.visualType} caption={block.caption} />
+                </Suspense>
+              </div>
+            );
 
           default:
             return null;

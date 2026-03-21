@@ -12,6 +12,7 @@ export type Block =
   | { t: 'formula'; label: string; formula: string; explanation?: string }
   | { t: 'takeaways'; items: string[] }
   | { t: 'visual'; title: string; rows: { label: string; value: string; color?: string }[] }
+  | { t: 'diagram'; visualType: string; caption?: string }
 
 export type RichLesson = {
   title: string
