@@ -131,7 +131,6 @@ export default function CompletePage({ params }: { params: { id: string } }) {
             style={{ borderBottom: '1px solid rgba(251,191,36,0.12)', background: 'rgba(251,191,36,0.05)' }}>
             <span className="w-2 h-2 rounded-full" style={{ background: '#fbbf24' }} />
             <p className="text-amber-300 text-xs font-semibold uppercase tracking-widest">Your Certificate</p>
-            <span className="ml-auto text-white/20 text-xs">Powered by Gemini AI</span>
           </div>
 
           <div className="p-6">
@@ -181,7 +180,7 @@ export default function CompletePage({ params }: { params: { id: string } }) {
                   </div>
                 </div>
                 <div className="text-center">
-                  <p className="text-amber-300 text-sm font-semibold">Gemini is crafting your certificate…</p>
+                  <p className="text-amber-300 text-sm font-semibold">Crafting your certificate…</p>
                   <p className="text-white/30 text-xs mt-1">This takes about 15–30 seconds</p>
                 </div>
                 <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>

@@ -2852,11 +2852,7 @@ export default memo(function LessonVisual({ title, courseId }: { title: string; 
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
             <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'linear-gradient(135deg,#6366f1,#a855f7)', display: 'inline-block' }} />
-            <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-              AI-Generated Diagram
-            </span>
           </div>
-          <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 10 }}>Gemini</span>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
