@@ -45,7 +45,7 @@ function getVisualType(title: string, _courseId: number): string { // eslint-dis
   if (t.includes('bollinger')) return 'bollinger';
   if (t.includes('fibonacci')) return 'fibonacci';
   if (t.includes('volume analysis') || (t.includes('volume') && !t.includes('indicator'))) return 'volume';
-  if ((t.includes('multi-timeframe') || t.includes('multi timeframe')) && !t.includes('analysis')) return 'multi-timeframe';
+  if (t.includes('multi-timeframe') || t.includes('multi timeframe')) return 'multi-timeframe';
   if (t.includes('building a technical strategy')) return 'strategy';
   if (t.includes('backtesting your setup') || t.includes('backtesting strategies')) return 'backtest';
   if (t.includes('live chart walkthroughs') || t.includes('live trade examples')) return 'live-chart';
