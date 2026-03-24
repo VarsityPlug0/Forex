@@ -11,6 +11,7 @@ const { sequelize } = require('./config/database');
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const rateLimiter = require('./middleware/rateLimiter');
+const { generateDiagram, ALL_VISUAL_TYPES } = require('./services/geminiService');
 
 dotenv.config();
 
@@ -75,6 +76,29 @@ async function startServer() {
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`Health check: http://localhost:${PORT}/health`);
     console.log(`API base: http://localhost:${PORT}/api/v1`);
+
+    // Auto-generate missing diagrams in the background after startup
+    if (process.env.OPENROUTER_API_KEY) {
+      const DIAGRAMS_DIR = path.join(__dirname, '..', 'public', 'diagrams');
+      if (!require('fs').existsSync(DIAGRAMS_DIR)) {
+        require('fs').mkdirSync(DIAGRAMS_DIR, { recursive: true });
+      }
+      (async () => {
+        const existing = require('fs').readdirSync(DIAGRAMS_DIR).map(f => f.split('-').slice(0, -1).join('-'));
+        const missing = ALL_VISUAL_TYPES.filter(vt => !existing.some(e => e === vt));
+        if (missing.length === 0) return console.log('[Diagrams] All diagrams already generated.');
+        console.log(`[Diagrams] Generating ${missing.length} missing diagrams...`);
+        for (const vt of missing) {
+          try {
+            await generateDiagram(vt, DIAGRAMS_DIR);
+            console.log(`[Diagrams] ✓ ${vt}`);
+          } catch (err) {
+            console.error(`[Diagrams] ✗ ${vt}:`, err.message);
+          }
+        }
+        console.log('[Diagrams] Done.');
+      })();
+    }
   });
 }
 
