@@ -59,7 +59,7 @@ services:
         fromService:
           type: web
           name: forex-api
-          property: hostURL
+          property: host
 
 # ── PostgreSQL Database ────────────────────────────────────────────────────
 databases:
