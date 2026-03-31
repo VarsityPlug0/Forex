@@ -3,6 +3,7 @@ services:
   - type: web
     name: forex-api
     runtime: node
+    plan: free
     rootDir: backend/nodejs
     buildCommand: npm install
     startCommand: node src/server.js
@@ -49,6 +50,7 @@ services:
   - type: web
     name: forex-frontend
     runtime: node
+    plan: free
     rootDir: frontend/nextjs
     buildCommand: npm install && npm run build
     startCommand: npm start
@@ -66,3 +68,4 @@ databases:
   - name: forex-db
     databaseName: forex_trading_platform
     user: forex_user
+    plan: free
