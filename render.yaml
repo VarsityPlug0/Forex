@@ -6,13 +6,11 @@ services:
     plan: free
     rootDir: backend/nodejs
     buildCommand: npm ci
-    startCommand: node src/server.js
+    startCommand: NODE_OPTIONS=--max-old-space-size=400 node src/server.js
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NODE_OPTIONS
-        value: --max-old-space-size=400
       - key: PORT
         fromService:
           type: web
@@ -54,13 +52,11 @@ services:
     runtime: node
     plan: free
     rootDir: frontend/nextjs
-    buildCommand: npm ci && npm run build
-    startCommand: npm start
+    buildCommand: npm ci && NODE_OPTIONS=--max-old-space-size=460 npm run build
+    startCommand: NODE_OPTIONS=--max-old-space-size=400 npm start
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NODE_OPTIONS
-        value: --max-old-space-size=400
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
       - key: NEXT_PUBLIC_API_URL
