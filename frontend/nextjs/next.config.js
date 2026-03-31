@@ -23,8 +23,6 @@ const nextConfig = {
       '@radix-ui/react-toast',
       '@radix-ui/react-tooltip',
       'framer-motion',
-      'recharts',
-      'date-fns',
     ],
   },
 

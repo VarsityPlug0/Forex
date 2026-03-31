@@ -5,7 +5,7 @@ services:
     runtime: node
     plan: free
     rootDir: backend/nodejs
-    buildCommand: npm ci --prefer-offline
+    buildCommand: npm ci
     startCommand: node src/server.js
     healthCheckPath: /health
     envVars:
@@ -54,7 +54,7 @@ services:
     runtime: node
     plan: free
     rootDir: frontend/nextjs
-    buildCommand: npm ci --prefer-offline && npm run build
+    buildCommand: npm ci && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
