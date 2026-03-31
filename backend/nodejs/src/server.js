@@ -59,23 +59,22 @@ app.use('/api', routes);
 app.use(errorHandler);
 
 async function startServer() {
-  // Try DB connection but don't block server startup
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection established successfully.');
-    if (process.env.NODE_ENV === 'development') {
-      await sequelize.sync({ alter: true });
-      console.log('Database synced.');
-    }
-  } catch (error) {
-    console.warn('Database unavailable — running without DB:', error.message);
-  }
-
+  // Listen immediately so health check passes before DB connects
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`Health check: http://localhost:${PORT}/health`);
     console.log(`API base: http://localhost:${PORT}/api/v1`);
+
+    // Connect to DB in background — don't block server startup
+    sequelize.authenticate()
+      .then(() => {
+        console.log('Database connection established.');
+        if (process.env.NODE_ENV === 'development') {
+          return sequelize.sync({ alter: true }).then(() => console.log('Database synced.'));
+        }
+      })
+      .catch(err => console.warn('Database unavailable — running without DB:', err.message));
 
     // Auto-generate missing diagrams in the background after startup
     if (process.env.OPENROUTER_API_KEY) {
