@@ -8,6 +8,10 @@ const nextConfig = {
   },
   reactStrictMode: true,
 
+  // Skip ESLint + TypeScript checks during build to save ~200MB RAM on free tier
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
+
   // Optimise imports — tree-shake large packages at compile time
   experimental: {
     optimizePackageImports: [
