@@ -72,7 +72,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
     const login = useCallback(async (email: string, password: string) => {
         try {
-            const res = await fetch(`${API}/auth/login`, {
+            // Internal route handler proxies to backend and sets HttpOnly cookie
+            const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -92,7 +93,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
     const register = useCallback(async (input: { username: string; email: string; password: string }) => {
         try {
-            const res = await fetch(`${API}/auth/register`, {
+            // Internal route handler proxies to backend and sets HttpOnly cookie
+            const res = await fetch('/api/auth/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(input),
@@ -114,6 +116,8 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         setToken(null);
         setUser(null);
         localStorage.removeItem('token');
+        // Clear the HttpOnly auth cookie server-side (best-effort)
+        fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
     }, []);
 
     return (

@@ -70,6 +70,35 @@ const nextConfig = {
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=()' },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://s3.tradingview.com https://www.googletagmanager.com https://pagead2.googlesyndication.com",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob: https://images.unsplash.com https://via.placeholder.com",
+              "font-src 'self' data:",
+              "connect-src 'self' https://forex-api-tvz5.onrender.com wss: https:",
+              "frame-src 'self' https://www.tradingview.com",
+              "frame-ancestors 'none'",
+            ].join('; '),
+          },
+        ],
+      },
+      // Admin routes: no indexing
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+        ],
+      },
+      // Dashboard routes: no indexing
+      {
+        source: '/dashboard/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
         ],
       },
       // Long-term cache for immutable static assets

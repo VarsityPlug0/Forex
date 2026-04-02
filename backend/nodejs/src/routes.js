@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import route modules
+const { authRateLimiter } = require('./middleware/rateLimiter');
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/user.routes');
 const courseRoutes = require('./routes/course.routes');
@@ -24,7 +25,7 @@ router.get('/health', (req, res) => {
 });
 
 // Mount routes
-router.use(`${API_PREFIX}/auth`, authRoutes);
+router.use(`${API_PREFIX}/auth`, authRateLimiter, authRoutes);
 router.use(`${API_PREFIX}/users`, userRoutes);
 router.use(`${API_PREFIX}/courses`, courseRoutes);
 router.use(`${API_PREFIX}/blog`, blogRoutes);

@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import {
   Users, FileText, GraduationCap, TrendingUp,
   Megaphone, ArrowUpRight, ArrowDownRight,
-  Activity, Eye, BookOpen, DollarSign,
+  Activity, BookOpen, DollarSign, AlertCircle,
 } from 'lucide-react';
+import { useAuth } from '../components/AuthProvider';
 
 interface DashboardStats {
   users: { total: number; active: number; recentSignups: number };
@@ -17,40 +18,40 @@ interface DashboardStats {
 const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
 export default function AdminDashboard() {
+  const { token } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Try to fetch from API, fall back to demo data
     const fetchStats = async () => {
+      const jwt = token || localStorage.getItem('token');
+      if (!jwt) {
+        setError('Authentication required');
+        setLoading(false);
+        return;
+      }
       try {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-        if (token) {
-          const res = await fetch(`${API}/admin/dashboard`, {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (res.ok) {
-            const data = await res.json();
-            setStats(data.stats);
-            setLoading(false);
-            return;
-          }
+        const res = await fetch(`${API}/admin/dashboard`, {
+          headers: { Authorization: `Bearer ${jwt}` },
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data.stats);
+        } else if (res.status === 401 || res.status === 403) {
+          setError('You do not have permission to view this page');
+        } else {
+          setError('Failed to load dashboard data');
         }
-      } catch (_) {}
-
-      // Demo data fallback
-      setStats({
-        users: { total: 2847, active: 1923, recentSignups: 124 },
-        content: { totalPosts: 48, publishedPosts: 42, totalCourses: 7, totalLessons: 52, lessonCompletions: 1283 },
-        pamm: { totalGroups: 3, activeInvestments: 89 },
-        announcements: 5,
-      });
+      } catch (_) {
+        setError('Backend unavailable — try again later');
+      }
       setLoading(false);
     };
     fetchStats();
-  }, []);
+  }, [token]);
 
-  if (loading || !stats) {
+  if (loading) {
     return (
       <div className="animate-pulse space-y-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -58,6 +59,15 @@ export default function AdminDashboard() {
             <div key={i} className="h-28 bg-surface-100 rounded-2xl" />
           ))}
         </div>
+      </div>
+    );
+  }
+
+  if (error || !stats) {
+    return (
+      <div className="flex items-center gap-3 bg-danger/10 border border-danger/20 text-danger rounded-2xl px-6 py-5">
+        <AlertCircle className="w-5 h-5 shrink-0" />
+        <p className="text-sm font-medium">{error || 'No data available'}</p>
       </div>
     );
   }
