@@ -9,7 +9,7 @@ const CHART_TYPES = new Set([
   'moving-averages', 'rsi', 'macd', 'bollinger', 'fibonacci', 'head-shoulders',
   'flags', 'volume', 'backtest', 'drawdown', 'live-chart', 'price-action',
   'market-structure', 'bos', 'choch', 'order-blocks', 'fvg', 'chart',
-  // Bevan's Three-Candle Strategy
+  // Three-Candle Strategy
   'tc-structure', 'tc-supply-demand', 'tc-liquidity', 'tc-mtf', 'tc-walkthrough',
 ]);
 
@@ -84,7 +84,7 @@ function getVisualType(title: string, _courseId: number): string { // eslint-dis
   if (t.includes('scalping') || t.includes('swing trading')) return 'scalp-swing';
   if (t.includes('building your pa strategy') || t.includes('pa strategy')) return 'pa-strategy';
 
-  // Bevan's Three-Candle Strategy (Course 7)
+  // Three-Candle Strategy (Course 7)
   if (t.includes('three-candle philosophy') || t.includes('introduction: the three')) return 'tc-intro';
   if (t.includes('market structure') && t.includes('swing')) return 'tc-structure';
   if (t.includes('supply') && t.includes('demand') && t.includes('zone')) return 'tc-supply-demand';
@@ -2440,7 +2440,7 @@ function ChartSVG() {
   );
 }
 
-// ─── BEVAN'S THREE-CANDLE STRATEGY VISUALS ────────────────────────────────────
+// ─── THREE-CANDLE STRATEGY VISUALS ────────────────────────────────────────────
 
 function TcIntroSVG() {
   return (
@@ -2795,7 +2795,7 @@ const visualMap: Record<string, () => JSX.Element> = {
   'community':         CommunitySVG,
   'assessment':        AssessmentSVG,
   'chart':             ChartSVG,
-  // Bevan's Three-Candle Strategy
+  // Three-Candle Strategy
   'tc-intro':          TcIntroSVG,
   'tc-bullish':        TcBullishSVG,
   'tc-bearish':        TcBearishSVG,

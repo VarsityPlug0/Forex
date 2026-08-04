@@ -31,7 +31,7 @@ export default function HomePage() {
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-white/60">
               <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" />
             </svg>
-            By Bevan Ndzhaka Mkhabele · Age 22
+            By a self-taught forex trader
           </div>
 
           {/* Heading */}
@@ -49,7 +49,7 @@ export default function HomePage() {
             className="text-white/50 max-w-2xl leading-relaxed mb-6 text-balance"
             style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}
           >
-            I&apos;m Bevan — a 22-year-old self-taught forex trader. I built this platform to share everything
+            A self-taught forex trader who built this platform to share everything
             I&apos;ve learned: from reading price action and managing risk, to running PAMM accounts and
             building automated strategies. No fluff. Just real skills that work in live markets.
           </p>

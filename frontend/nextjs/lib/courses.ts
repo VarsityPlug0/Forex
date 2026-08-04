@@ -161,11 +161,11 @@ export const courses: Course[] = [
   },
   {
     id: 7,
-    title: "Bevan's Three-Candle Strategy",
+    title: "Three-Candle Strategy",
     level: 'Advanced',
     lessons: 11,
     duration: '5 hrs',
-    description: "Bevan's personal trading method: market structure, supply & demand zones, liquidity sweeps, and the three-candle entry pattern.",
+    description: "A complete trading method: market structure, supply & demand zones, liquidity sweeps, and the three-candle entry pattern.",
     overview: "This is the exact strategy I use to trade forex every day. You will learn to read market structure, draw supply and demand zones, spot institutional liquidity sweeps, and enter high-probability trades using my three-candle confirmation pattern. Every concept builds on the last — by the end you will have a complete, repeatable system.",
     curriculum: [
       { title: 'Introduction: The Three-Candle Philosophy', duration: '20 min', content: `Most retail traders lose money not because the market is random, but because they trade in the exact places where smart money is hunting them. This course teaches you to stop being the prey and start following the predator.\n\n**The core problem with most strategies:**\n- They enter at obvious levels where everyone else enters\n- Their stop losses sit at the same predictable places\n- They get stopped out right before the real move starts\n\n**The three-candle philosophy:**\nSmart money (banks, institutions, hedge funds) needs massive liquidity to fill their orders. They create it by engineering false moves that trigger retail stop losses — then use that liquidity to enter their real positions. My strategy identifies the moment right after this manipulation and enters in the true direction.\n\n**The three components of every valid setup:**\n1. **The Zone** — a high-quality supply or demand area on a higher timeframe\n2. **The Sweep** — price hunts liquidity at a swing point within the zone\n3. **The Rejection** — a three-candle signature confirming the hunt is over\n\n**What you will learn in this course:**\n- How to map market structure and find key swing points\n- How to draw supply and demand zones correctly\n- What liquidity sweeps look like and why they happen\n- The exact five rules of the three-candle pattern\n- How to align higher and lower timeframes for maximum probability\n- How to enter, set your stop loss, and target the next liquidity pool\n\n⚠️ This course assumes you understand basic candlesticks and market structure. Complete Price Action Trading first if you have not already.` },

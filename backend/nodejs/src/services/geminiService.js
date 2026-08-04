@@ -168,7 +168,7 @@ BEARISH FVG: green, large red, red. Light red shading "Bearish FVG". Arrow "Fill
 Zoom boxes around each gap. Title "Fair Value Gap (FVG)".`,
 
   'tc-structure': `
-Bevan Three-Candle Strategy market structure on DARK #0f1117 background.
+Three-Candle Strategy market structure on DARK #0f1117 background.
 Clear HH/HL uptrend. Minor pullback to swing low. Three-candle bullish reversal pattern at swing low highlighted with subtle glow.
 Title "Three-Candle Strategy: Market Structure".`,
 

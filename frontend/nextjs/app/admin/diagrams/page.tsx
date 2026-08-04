@@ -46,7 +46,7 @@ const VISUAL_GROUPS: { label: string; color: string; types: { id: string; name: 
     ],
   },
   {
-    label: "Bevan's Three-Candle Strategy",
+    label: "Three-Candle Strategy",
     color: '#ec4899',
     types: [
       { id: 'tc-structure', name: 'Structure for TC Strategy' },

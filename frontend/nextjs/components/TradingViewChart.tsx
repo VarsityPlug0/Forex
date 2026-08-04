@@ -249,7 +249,7 @@ const LESSONS: Record<string, LessonConfig> = {
     ],
   },
 
-  // ── Bevan's Three-Candle Strategy ──────────────────────────────────────────
+  // ── Three-Candle Strategy ────────────────────────────────────────────────────
   'tc-structure': {
     symbol: 'FX:GBPUSD', interval: '60', studies: [],
     title: 'Mapping Market Structure (Swing Highs & Lows)',
